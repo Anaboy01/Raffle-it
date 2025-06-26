@@ -109,12 +109,104 @@
 			},
 			{
 				"inputs": [],
-				"name": "getParticipants",
+				"name": "getAllRaffleResults",
+				"outputs": [
+					{
+						"internalType": "address[]",
+						"name": "winners",
+						"type": "address[]"
+					},
+					{
+						"internalType": "uint256[]",
+						"name": "tokenIds",
+						"type": "uint256[]"
+					},
+					{
+						"internalType": "string[]",
+						"name": "tokenURIs",
+						"type": "string[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getContractFinancials",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "balance",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "totalRefunds",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "withdrawableProfit",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getCurrentParticipants",
 				"outputs": [
 					{
 						"internalType": "address[]",
 						"name": "",
 						"type": "address[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getCurrentRaffleInfo",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "currentRaffleNumber",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "isOpen",
+						"type": "bool"
+					},
+					{
+						"internalType": "uint256",
+						"name": "numberOfParticipants",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getLastRaffleWinner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
 					}
 				],
 				"stateMutability": "view",
@@ -144,6 +236,25 @@
 						"internalType": "string",
 						"name": "",
 						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					}
+				],
+				"name": "getRefundAmount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -436,11 +547,11 @@
 			]
 		},
 		"contracts/RaffleSystem.sol": {
-			"keccak256": "0xd8c6c917becf730497aedfb44ad2aafce5019cc75f1f6fb6bf1369fb78b58c0b",
+			"keccak256": "0x7d7ac29da9eb33aef9954ca9e0a7be6473ae1aae960b55f5216ae414d77b488f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://24eeafee7f646a66103dc3092c7bea797ecda9bcb92439859b45182023897b8e",
-				"dweb:/ipfs/QmT1xzXtYLSw6RZRbwgsJTSJ7yV4aUqJW1u9CfKgxCiTov"
+				"bzz-raw://81215a84511a9dcfa700cc6337e11cec2eb203bad919361f8a18f8cc8f54a6e6",
+				"dweb:/ipfs/QmU8SZRB3dLWpMaVTBss5cMxam9gyCaqC36NaQtpZZhe2t"
 			]
 		},
 		"contracts/RealToken.sol": {

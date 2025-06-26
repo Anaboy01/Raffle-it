@@ -11,7 +11,7 @@ contract RaffleSystem {
     uint256 public raffleCount;
     address public owner;
 
-    uint256 public totalRefundable; // 👈 new variable to track total refund balance
+    uint256 public totalRefundable;
 
     struct RaffleResult {
         address winner;
@@ -19,7 +19,7 @@ contract RaffleSystem {
         string tokenURI;
     }
 
-    RaffleResult[] public raffleResults; 
+    RaffleResult[] public raffleResults;
 
     event RaffleEntered(address indexed participant);
     event WinnerSelected(address indexed winner);
@@ -78,13 +78,13 @@ contract RaffleSystem {
             address participant = participants[i];
             if (participant != winner) {
                 refunds[participant] += entryFee;
-                totalRefundable += entryFee;       
+                totalRefundable += entryFee;
                 emit RefundIssued(participant, entryFee);
             }
         }
 
-        delete participants;       
-        raffleOpen = true;         
+        delete participants;
+        raffleOpen = true;
     }
 
     function closeRaffleAndSelectWinner() external onlyOwner {
@@ -97,7 +97,7 @@ contract RaffleSystem {
         require(refundAmount > 0, "No refund available");
 
         refunds[msg.sender] = 0;
-        totalRefundable -= refundAmount; 
+        totalRefundable -= refundAmount;
         payable(msg.sender).transfer(refundAmount);
 
         emit RefundIssued(msg.sender, refundAmount);
@@ -114,13 +114,70 @@ contract RaffleSystem {
         emit BalanceWithdrawn(owner, profit);
     }
 
-    function getParticipants() external view returns (address[] memory) {
+    // === ✅ FRONTEND GETTER HELPERS BELOW ===
+
+    // 1. Get participants in the current raffle
+    function getCurrentParticipants() external view returns (address[] memory) {
         return participants;
     }
 
+    // 2. Get current raffle info: raffle number, isOpen, number of participants
+    function getCurrentRaffleInfo() external view returns (
+        uint256 currentRaffleNumber,
+        bool isOpen,
+        uint256 numberOfParticipants
+    ) {
+        return (raffleCount + 1, raffleOpen, participants.length);
+    }
+
+    // 3. Get refund balance of a user
+    function getRefundAmount(address user) external view returns (uint256) {
+        return refunds[user];
+    }
+
+    // 4. Get contract balance overview
+    function getContractFinancials() external view returns (
+        uint256 balance,
+        uint256 totalRefunds,
+        uint256 withdrawableProfit
+    ) {
+        uint256 contractBalance = address(this).balance;
+        uint256 profit = contractBalance > totalRefundable ? contractBalance - totalRefundable : 0;
+        return (contractBalance, totalRefundable, profit);
+    }
+
+    // 5. Get last raffle winner quickly
+    function getLastRaffleWinner() external view returns (address, uint256, string memory) {
+        require(raffleResults.length > 0, "No raffle results yet");
+        RaffleResult storage result = raffleResults[raffleResults.length - 1];
+        return (result.winner, result.tokenId, result.tokenURI);
+    }
+
+    // 6. Get any raffle result by index
     function getRaffleResult(uint256 raffleIndex) external view returns (address, uint256, string memory) {
         require(raffleIndex < raffleResults.length, "Raffle does not exist");
         RaffleResult storage result = raffleResults[raffleIndex];
         return (result.winner, result.tokenId, result.tokenURI);
     }
+
+    function getAllRaffleResults() external view returns (
+    address[] memory winners,
+    uint256[] memory tokenIds,
+    string[] memory tokenURIs
+) {
+    uint256 len = raffleResults.length;
+    winners = new address[](len);
+    tokenIds = new uint256[](len);
+    tokenURIs = new string[](len);
+
+    for (uint256 i = 0; i < len; i++) {
+        RaffleResult storage result = raffleResults[i];
+        winners[i] = result.winner;
+        tokenIds[i] = result.tokenId;
+        tokenURIs[i] = result.tokenURI;
+    }
+
+    return (winners, tokenIds, tokenURIs);
+}
+
 }
