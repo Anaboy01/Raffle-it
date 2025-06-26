@@ -114,14 +114,14 @@ contract RaffleSystem {
         emit BalanceWithdrawn(owner, profit);
     }
 
-    // === ✅ FRONTEND GETTER HELPERS BELOW ===
+ 
 
-    // 1. Get participants in the current raffle
+  
     function getCurrentParticipants() external view returns (address[] memory) {
         return participants;
     }
 
-    // 2. Get current raffle info: raffle number, isOpen, number of participants
+    
     function getCurrentRaffleInfo() external view returns (
         uint256 currentRaffleNumber,
         bool isOpen,
@@ -130,12 +130,12 @@ contract RaffleSystem {
         return (raffleCount + 1, raffleOpen, participants.length);
     }
 
-    // 3. Get refund balance of a user
+   
     function getRefundAmount(address user) external view returns (uint256) {
         return refunds[user];
     }
 
-    // 4. Get contract balance overview
+   
     function getContractFinancials() external view returns (
         uint256 balance,
         uint256 totalRefunds,
@@ -146,14 +146,13 @@ contract RaffleSystem {
         return (contractBalance, totalRefundable, profit);
     }
 
-    // 5. Get last raffle winner quickly
     function getLastRaffleWinner() external view returns (address, uint256, string memory) {
         require(raffleResults.length > 0, "No raffle results yet");
         RaffleResult storage result = raffleResults[raffleResults.length - 1];
         return (result.winner, result.tokenId, result.tokenURI);
     }
 
-    // 6. Get any raffle result by index
+
     function getRaffleResult(uint256 raffleIndex) external view returns (address, uint256, string memory) {
         require(raffleIndex < raffleResults.length, "Raffle does not exist");
         RaffleResult storage result = raffleResults[raffleIndex];

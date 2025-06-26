@@ -547,11 +547,11 @@
 			]
 		},
 		"contracts/RaffleSystem.sol": {
-			"keccak256": "0x7d7ac29da9eb33aef9954ca9e0a7be6473ae1aae960b55f5216ae414d77b488f",
+			"keccak256": "0x684c5dfaff7c361839a74de7391a78eb51a0e5e8d6b48814802c9b05dfb27ee0",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://81215a84511a9dcfa700cc6337e11cec2eb203bad919361f8a18f8cc8f54a6e6",
-				"dweb:/ipfs/QmU8SZRB3dLWpMaVTBss5cMxam9gyCaqC36NaQtpZZhe2t"
+				"bzz-raw://18377733d93de994af5829161e74954991881f99f1e5739c7dc86ceb81331091",
+				"dweb:/ipfs/QmbDRztT6evYYNSPvVMTkvgdp9Swc7gAnaAhcGAZomJ44Q"
 			]
 		},
 		"contracts/RealToken.sol": {
